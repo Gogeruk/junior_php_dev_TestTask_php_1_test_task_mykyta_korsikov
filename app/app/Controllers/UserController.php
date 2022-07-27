@@ -44,7 +44,7 @@ class UserController
     /**
      * @return mixed
      */
-    public function login()
+    public function login(): mixed
     {
         $errors['email'] = [];
         $errors['password'] = [];
@@ -59,6 +59,7 @@ class UserController
                 // check if user exists
 
 
+                // redirect to the '3 button' page
                 return View::display('Home', ['page' => 'HOME']);
             }
         }
