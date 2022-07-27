@@ -9,7 +9,10 @@ use App\Modules\Validator;
 
 class UserController
 {
-    public function new()
+    /**
+     * @return mixed
+     */
+    public function new(): mixed
     {
         $errors['email'] = [];
         $errors['password'] = [];
@@ -25,15 +28,11 @@ class UserController
                 $role = 3; // worker
             }
 
-            $validator = new Validator();
-            $errors['email'] = $this->validateEmail($validator, $email);
-            $errors['password'] = $this->validatePassword($validator, $password);
-
-            $errors['password'] = array_filter($errors['password'], function($a) {return $a !== null;});
-            $errors['email'] = array_filter($errors['email'], function($a) {return $a !== null;});
+            $errors = $this->validateForm($email, $password, $errors);
             if (empty($errors['email']) && empty($errors['password'])) {
 
                 // save to db
+
 
                 return View::display('Home', ['page' => 'HOME']);
             }
@@ -43,11 +42,31 @@ class UserController
     }
 
 
-
+    /**
+     * @return mixed
+     */
     public function login()
     {
-        return View::display('Login', ['page' => 'LOGIN']);
+        $errors['email'] = [];
+        $errors['password'] = [];
+        if (!empty($_POST)) {
+            $email = $_POST['email'];
+            $password = $_POST['password'];
+
+            $errors = $this->validateForm($email, $password, $errors);
+            if (empty($errors['email']) && empty($errors['password'])) {
+
+                // check if user exists
+
+
+                return View::display('Home', ['page' => 'HOME']);
+            }
+        }
+
+        return View::display('Login', ['page' => 'LOGIN', 'errors' => $errors]);
     }
+
+
 
     /**
      * @param Validator $validator
@@ -87,6 +106,27 @@ class UserController
             6,
             'Password string must be min 6 chars long'
         );
+        return $errors;
+    }
+
+    /**
+     * @param mixed $email
+     * @param mixed $password
+     * @param array $errors
+     * @return array
+     */
+    public function validateForm(mixed $email, mixed $password, array $errors): array
+    {
+        $validator = new Validator();
+        $errors['email'] = $this->validateEmail($validator, $email);
+        $errors['password'] = $this->validatePassword($validator, $password);
+
+        $errors['password'] = array_filter($errors['password'], function ($a) {
+            return $a !== null;
+        });
+        $errors['email'] = array_filter($errors['email'], function ($a) {
+            return $a !== null;
+        });
         return $errors;
     }
 }
