@@ -11,7 +11,8 @@ class UserController
 {
     public function new()
     {
-        $errors = [];
+        $errors['email'] = [];
+        $errors['password'] = [];
         if (!empty($_POST)) {
             $email = $_POST['email'];
             $password = $_POST['password'];
@@ -27,9 +28,16 @@ class UserController
             $validator = new Validator();
             $errors['email'] = $this->validateEmail($validator, $email);
             $errors['password'] = $this->validatePassword($validator, $password);
-        }
 
-        var_dump($errors);
+            $errors['password'] = array_filter($errors['password'], function($a) {return $a !== null;});
+            $errors['email'] = array_filter($errors['email'], function($a) {return $a !== null;});
+            if (empty($errors['email']) && empty($errors['password'])) {
+
+                // save to db
+
+                return View::display('Home', ['page' => 'HOME']);
+            }
+        }
 
         return View::display('New', ['page' => 'NEW', 'errors' => $errors]);
     }
