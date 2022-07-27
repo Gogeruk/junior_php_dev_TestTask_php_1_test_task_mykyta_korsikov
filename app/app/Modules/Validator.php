@@ -70,4 +70,22 @@ class Validator
         }
         return null;
     }
+
+
+    /**
+     * @param string $inputString
+     * @param string $mustContainString
+     * @param string $message
+     * @return string|null
+     */
+    public function stringMustContainConstraint(string $inputString, string $mustContainString, string $message = ''): string|null
+    {
+        if ($message == '') {
+            $message = 'String must contain ' . $mustContainString;
+        }
+        if (!str_contains($inputString, $mustContainString)) {
+            return $message;
+        }
+        return null;
+    }
 }

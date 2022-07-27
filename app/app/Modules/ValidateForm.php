@@ -42,6 +42,11 @@ class ValidateForm
             6,
             'Password string must be min 6 chars long'
         );
+        $errors[] = $validator->stringMustContainConstraint(
+            $inputString,
+            '!',
+            'Password string must contain "!"'
+        );
         return $errors;
     }
 
