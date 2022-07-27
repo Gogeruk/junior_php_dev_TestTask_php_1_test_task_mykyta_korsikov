@@ -19,7 +19,6 @@ class UserController
         if (!empty($_POST)) {
             $email = $_POST['email'];
             $password = $_POST['password'];
-
             $role = 1; // director
             if (isset($_POST['manager'])) {
                 $role = 2; // manager

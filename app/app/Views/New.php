@@ -1,5 +1,5 @@
 <?php include('Main.php'); ?>
-
+<?php include('Navigation.php'); ?>
 
 <form class="m-3" action="/new" id="form" method="post">
 
