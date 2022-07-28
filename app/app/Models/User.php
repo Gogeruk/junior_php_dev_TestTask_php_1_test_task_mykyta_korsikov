@@ -12,7 +12,7 @@ use App\Modules\Database;
  * 2 is a manager
  * 3 is a worker
  */
-Class User Extends Model
+class User extends Model
 {
     /**
      * @var Database

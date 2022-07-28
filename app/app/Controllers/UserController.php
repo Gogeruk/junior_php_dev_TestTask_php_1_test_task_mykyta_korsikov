@@ -77,7 +77,7 @@ class UserController
      * @param $user
      * @return void
      */
-    public function  createUserSession($user): void
+    public function createUserSession($user): void
     {
         $_SESSION['user_id'] = $user->id;
         $_SESSION['user_email'] = $user->email;

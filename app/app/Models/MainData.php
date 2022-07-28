@@ -4,7 +4,7 @@ namespace App\Models;
 
 use App\Modules\Database;
 
-class MainData Extends Model
+class MainData extends Model
 {
     /**
      * @var Database

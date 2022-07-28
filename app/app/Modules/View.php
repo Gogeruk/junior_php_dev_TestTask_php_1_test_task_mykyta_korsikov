@@ -9,9 +9,9 @@ class View
      * @param array $data
      * @return mixed
      */
-    public static function display(string $view, array $data = []) : mixed
+    public static function display(string $view, array $data = []): mixed
     {
-        $view = __DIR__ . '/../Views/'.$view.'.php';
+        $view = __DIR__ . '/../Views/' . $view . '.php';
         extract($data);
         return require $view;
     }

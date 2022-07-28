@@ -5,7 +5,6 @@
     if ($_SESSION['user_role'] <= 3) {
         echo '<button class="m-3 btn btn-sm btn-primary" type="button" value="Worker" onclick="javascript:getJson(this.value)">Worker</button>';
     }
-
     if ($_SESSION['user_role'] <= 2) {
         echo '<button class="m-3 btn btn-sm btn-warning" type="button" value="Manager" onclick="javascript:getJson(this.value)">Manager</button>';
     }
