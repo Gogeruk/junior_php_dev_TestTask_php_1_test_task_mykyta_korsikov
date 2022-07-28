@@ -39,10 +39,6 @@ class UserController
                     'role' => $role,
                ]);
 
-//                var_dump($email);
-//                exit();
-
-
                 return View::display('Home', ['page' => 'HOME']);
             }
         }

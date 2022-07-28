@@ -3,21 +3,34 @@
 
 namespace App\Modules;
 
+// move to .env
 const DB_HOST = 'mysql';
 const DB_USER = 'root';
 const DB_PASS = 'password';
 const DB_NAME = 'db';
 
+
 class Database
 {
-    private $host = DB_HOST;
-    private $user = DB_USER;
-    private $pass = DB_PASS;
-    private $dbname = DB_NAME;
+    private string $host = DB_HOST;
+    private string $user = DB_USER;
+    private string $pass = DB_PASS;
+    private string $dbname = DB_NAME;
 
-    private $dbh;
-    private $stmt;
-    private $error;
+    /**
+     * @var \PDO
+     */
+    private \PDO $dbh;
+
+    /**
+     * @var mixed
+     */
+    private mixed $stmt;
+
+    /**
+     * @var string
+     */
+    private string $error;
 
 
     public function __construct()
@@ -38,12 +51,22 @@ class Database
         }
     }
 
-    public function query($sql)
+    /**
+     * @param $sql
+     * @return void
+     */
+    public function query($sql): void
     {
         $this->stmt = $this->dbh->prepare($sql);
     }
 
-    public function bind($param, $value, $type = null)
+    /**
+     * @param $param
+     * @param $value
+     * @param $type
+     * @return void
+     */
+    public function bind($param, $value, $type = null): void
     {
         if (is_null($type)) {
             switch (true) {
@@ -63,24 +86,36 @@ class Database
         $this->stmt->bindValue($param, $value, $type);
     }
 
-    public function execute()
+    /**
+     * @return mixed
+     */
+    public function execute(): mixed
     {
         return $this->stmt->execute();
     }
 
-    public function resultSet()
+    /**
+     * @return mixed
+     */
+    public function resultSet(): mixed
     {
         $this->execute();
         return $this->stmt->fetchAll(\PDO::FETCH_OBJ);
     }
 
-    public function single()
+    /**
+     * @return mixed
+     */
+    public function single(): mixed
     {
         $this->execute();
         return $this->stmt->fetch(\PDO::FETCH_OBJ);
     }
 
-    public function rowCount()
+    /**
+     * @return mixed
+     */
+    public function rowCount(): mixed
     {
         return $this->stmt->rowCount();
     }

@@ -5,6 +5,13 @@ namespace App\Models;
 
 use App\Modules\Database;
 
+
+/**
+ * roles are:
+ * 1 is a director
+ * 2 is a manager
+ * 3 is a worker
+ */
 Class User Extends Model
 {
     /**
@@ -51,7 +58,6 @@ Class User Extends Model
         $this->db->bind(':password', $data['password']);
         $this->db->bind(':role', $data['role']);
 
-
         if ($this->db->execute()) {
             return true;
         } else {
@@ -70,9 +76,9 @@ Class User Extends Model
         $this->db->query('SELECT *FROM users WHERE email=:email');
         $this->db->bind(':email', $email);
         $row = $this->db->single();
-        $hashed_password = $row->password;
+        $hashedPassword = $row->password;
 
-        if (password_verify($password, $hashed_password)) {
+        if (password_verify($password, $hashedPassword)) {
             return $row;
         } else {
             return false;
