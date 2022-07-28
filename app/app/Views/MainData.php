@@ -1,7 +1,18 @@
 <?php include('Main.php'); ?>
 <?php include('Navigation.php'); ?>
 
-<button class="m-3 btn btn-primary" type="button" onclick="javascript:getJson()">Get Json</button>
+<?php
+    if ($_SESSION['user_role'] <= 3) {
+        echo '<button class="m-3 btn btn-sm btn-primary" type="button" onclick="javascript:getJson()">Worker</button>';
+    }
+
+    if ($_SESSION['user_role'] <= 2) {
+        echo '<button class="m-3 btn btn-sm btn-warning" type="button" onclick="javascript:getJson()">Manager</button>';
+    }
+    if ($_SESSION['user_role'] <= 1) {
+        echo '<button class="m-3 btn btn-sm btn-info" type="button" onclick="javascript:getJson()">Director</button>';
+    }
+?>
 
 <div class="mb-4">
     <div class="m-3" id="newJsonCreate">
