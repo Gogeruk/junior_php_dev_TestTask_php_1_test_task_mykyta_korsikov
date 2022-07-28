@@ -32,6 +32,15 @@ class UserController
             if (empty($errors['email']) && empty($errors['password'])) {
 
                 // save to db
+                $user = new User();
+                $user->register([
+                    'email' => $email,
+                    'password' => $password,
+                    'role' => $role,
+               ]);
+
+//                var_dump($email);
+//                exit();
 
 
                 return View::display('Home', ['page' => 'HOME']);
