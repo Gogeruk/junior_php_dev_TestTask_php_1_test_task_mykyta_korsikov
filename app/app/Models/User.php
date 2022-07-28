@@ -19,9 +19,6 @@ Class User Extends Model
      */
     private $db;
 
-    /**
-     *
-     */
     public function __construct()
     {
         $this->db = new Database();
@@ -48,15 +45,17 @@ Class User Extends Model
 
 
     /**
-     * @param array $data
+     * @param string $email
+     * @param string $password
+     * @param int $role
      * @return bool
      */
-    public function register(array $data): bool
+    public function register(string $email, string $password, int $role): bool
     {
         $this->db->query('INSERT INTO users (email, password, role) VALUES(:email, :password, :role)');
-        $this->db->bind(':email', $data['email']);
-        $this->db->bind(':password', $data['password']);
-        $this->db->bind(':role', $data['role']);
+        $this->db->bind(':email', $email);
+        $this->db->bind(':password', $password);
+        $this->db->bind(':role', $role);
 
         if ($this->db->execute()) {
             return true;

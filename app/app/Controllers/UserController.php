@@ -33,12 +33,7 @@ class UserController
 
                 // save to db
                 $user = new User();
-                $user->register([
-                    'email' => $email,
-                    'password' => password_hash($password, PASSWORD_DEFAULT),
-                    'role' => $role,
-               ]);
-
+                $user->register($email, password_hash($password, PASSWORD_DEFAULT), $role);
                 return View::display('Home', ['page' => 'HOME']);
             }
         }
@@ -60,26 +55,12 @@ class UserController
             $validateForm = new ValidateForm();
             $errors = $validateForm->validateForm($email, $password, $errors);
             if (empty($errors['email']) && empty($errors['password'])) {
-
-                // check
                 $user = new User();
                 $loggedInUser = $user->login($email, $password);
 
-
                 if ($loggedInUser) {
-
-                    // create session
                     $this->createUserSession($loggedInUser);
-
-
-
-
-                    //
-                    //
-                    // !!!!
-                    //
-                    // redirect to api page
-                    return View::display('Home', ['page' => 'HOME']);
+                    return View::display('MainData', ['page' => 'Main']);
                 } else {
                     return View::display('Login', ['page' => 'LOGIN', 'errors' => [
                         'email' => [null],
@@ -99,7 +80,7 @@ class UserController
     public function  createUserSession($user): void
     {
         $_SESSION['user_id'] = $user->id;
-        $_SESSION['email'] = $user->email;
-        $_SESSION['role'] = $user->role;
+        $_SESSION['user_email'] = $user->email;
+        $_SESSION['user_role'] = $user->role;
     }
 }

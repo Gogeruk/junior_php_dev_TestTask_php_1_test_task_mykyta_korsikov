@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Models\MainData;
 use App\Modules\View;
 
 class MainDataController
@@ -14,12 +15,15 @@ class MainDataController
         if (!empty($_POST)) {
             $apiData = json_decode($_POST['apiData'], true);
 
-            // save api data to db
+            $email = $apiData[0]['userEmail'];
+            unset($apiData[0]);
 
+            $mainData = new MainData();
+            foreach ($apiData as $key => $data) {
+                $mainData->save($data['title'], $data['body'], $email, 'MUH BUTTON');
+            }
+            return View::display('Home', ['page' => 'HOME']);
         }
-
-
-
         return View::display('MainData', ['page' => 'MAIN']);
     }
 }
