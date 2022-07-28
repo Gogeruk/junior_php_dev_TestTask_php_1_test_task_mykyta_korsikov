@@ -71,7 +71,6 @@ class Validator
         return null;
     }
 
-
     /**
      * @param string $inputString
      * @param string $mustContainString

@@ -4,7 +4,6 @@ namespace App\Controllers;
 
 use App\Modules\View;
 
-
 class HomeController
 {
     /**

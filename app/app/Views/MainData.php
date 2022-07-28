@@ -20,8 +20,6 @@
 
 <button class="m-3 btn btn-danger" type="button" onclick="proceed();">Save</button>
 
-
-
 <script type="text/javascript" language="javascript">
     let stop = false;
     let clicked = 1;

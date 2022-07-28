@@ -2,9 +2,7 @@
 
 namespace App\Models;
 
-
 use App\Modules\Database;
-
 
 /**
  * roles are:
@@ -24,7 +22,6 @@ class User extends Model
         $this->db = new Database();
     }
 
-
     /**
      * @param string $email
      * @return bool
@@ -42,7 +39,6 @@ class User extends Model
             return false;
         }
     }
-
 
     /**
      * @param string $email
@@ -63,7 +59,6 @@ class User extends Model
             return false;
         }
     }
-
 
     /**
      * @param string $email

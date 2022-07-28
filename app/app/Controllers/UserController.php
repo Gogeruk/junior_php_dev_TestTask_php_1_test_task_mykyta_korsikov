@@ -6,7 +6,6 @@ use App\Models\User;
 use App\Modules\View;
 use App\Modules\ValidateForm;
 
-
 class UserController
 {
     /**
@@ -40,7 +39,6 @@ class UserController
         return View::display('New', ['page' => 'NEW', 'errors' => $errors]);
     }
 
-
     /**
      * @return mixed
      */
@@ -71,7 +69,6 @@ class UserController
         }
         return View::display('Login', ['page' => 'LOGIN', 'errors' => $errors]);
     }
-
 
     /**
      * @param $user

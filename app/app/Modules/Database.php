@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Modules;
 
 // move to .env
@@ -8,7 +7,6 @@ const DB_HOST = 'mysql';
 const DB_USER = 'root';
 const DB_PASS = 'password';
 const DB_NAME = 'db';
-
 
 class Database
 {
