@@ -35,7 +35,7 @@ class UserController
                 $user = new User();
                 $user->register([
                     'email' => $email,
-                    'password' => $password,
+                    'password' => password_hash($password, PASSWORD_DEFAULT),
                     'role' => $role,
                ]);
 
@@ -61,13 +61,45 @@ class UserController
             $errors = $validateForm->validateForm($email, $password, $errors);
             if (empty($errors['email']) && empty($errors['password'])) {
 
-                // check if user exists
+                // check
+                $user = new User();
+                $loggedInUser = $user->login($email, $password);
 
 
-                // redirect to the '3 button' page
-                return View::display('Home', ['page' => 'HOME']);
+                if ($loggedInUser) {
+
+                    // create session
+                    $this->createUserSession($loggedInUser);
+
+
+
+
+                    //
+                    //
+                    // !!!!
+                    //
+                    // redirect to api page
+                    return View::display('Home', ['page' => 'HOME']);
+                } else {
+                    return View::display('Login', ['page' => 'LOGIN', 'errors' => [
+                        'email' => [null],
+                        'password' => ['Invalid credentials']
+                    ]]);
+                }
             }
         }
         return View::display('Login', ['page' => 'LOGIN', 'errors' => $errors]);
+    }
+
+
+    /**
+     * @param $user
+     * @return void
+     */
+    public function  createUserSession($user): void
+    {
+        $_SESSION['user_id'] = $user->id;
+        $_SESSION['email'] = $user->email;
+        $_SESSION['role'] = $user->role;
     }
 }

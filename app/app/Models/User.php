@@ -69,9 +69,9 @@ Class User Extends Model
     /**
      * @param string $email
      * @param string $password
-     * @return false
+     * @return false|object
      */
-    public function login(string $email, string $password)
+    public function login(string $email, string $password): false|object
     {
         $this->db->query('SELECT *FROM users WHERE email=:email');
         $this->db->bind(':email', $email);
