@@ -20,7 +20,7 @@ class MainDataController
 
             $mainData = new MainData();
             foreach ($apiData as $key => $data) {
-                $mainData->save($data['title'], $data['body'], $email, 'MUH BUTTON');
+                $mainData->save($data['title'], $data['body'], $email, $data['button']);
             }
             return View::display('Home', ['page' => 'HOME']);
         }

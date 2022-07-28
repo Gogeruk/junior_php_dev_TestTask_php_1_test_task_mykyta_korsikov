@@ -3,14 +3,14 @@
 
 <?php
     if ($_SESSION['user_role'] <= 3) {
-        echo '<button class="m-3 btn btn-sm btn-primary" type="button" onclick="javascript:getJson()">Worker</button>';
+        echo '<button class="m-3 btn btn-sm btn-primary" type="button" value="Worker" onclick="javascript:getJson(this.value)">Worker</button>';
     }
 
     if ($_SESSION['user_role'] <= 2) {
-        echo '<button class="m-3 btn btn-sm btn-warning" type="button" onclick="javascript:getJson()">Manager</button>';
+        echo '<button class="m-3 btn btn-sm btn-warning" type="button" value="Manager" onclick="javascript:getJson(this.value)">Manager</button>';
     }
     if ($_SESSION['user_role'] <= 1) {
-        echo '<button class="m-3 btn btn-sm btn-info" type="button" onclick="javascript:getJson()">Director</button>';
+        echo '<button class="m-3 btn btn-sm btn-info" type="button" value="Director" onclick="javascript:getJson(this.value)">Director</button>';
     }
 ?>
 
@@ -29,7 +29,7 @@
     let apiData = [];
     let userEmail = "<?php echo $_SESSION['user_email']; ?>";
 
-    const getJson = async () => {
+    const getJson = async (clicked_val) => {
         if (stop === true) {
             return;
         }
@@ -46,7 +46,12 @@
             stop = true;
         }
 
-        apiData.push(myJson);
+        apiData.push({
+            'button': clicked_val,
+            'title': myJson['title'],
+            'body': myJson['body']
+        });
+
         createParagraph(myJson);
     }
 
